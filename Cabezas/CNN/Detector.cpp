@@ -190,9 +190,10 @@ namespace ReconLib {
 
         int correctos = 0;
         int totales = imagenes0.size();
-
         int clasecorrecta = Activations().argmax(labelscorrectos);
         int procesados = 0;
+
+        auto start = std::chrono::system_clock::now();
         for (Matriz m:imagenes0) {
         	std::vector<float> labelsProb = predict(m);
         	
@@ -202,6 +203,12 @@ namespace ReconLib {
             std::cout << "Procesados: " << procesados<<"\r";
             if (clasecorrecta == Activations().argmax(labelsProb)) correctos++;
         }
+        auto end = std::chrono::system_clock::now();
+        std::chrono::duration<double> elapsed_seconds = end - start;
+        std::time_t end_time = std::chrono::system_clock::to_time_t(end);
+        std::cout << "Duracion: " << elapsed_seconds.count() << "seg (" << 1.0 / elapsed_seconds.count() << " FPS)\n";
+
+
         std::cout << "\n==Resultados validacion: "<< etiquetas.at(clasecorrecta) <<"==\n";
         std::cout << "Totales: " << totales;
         std::cout << "\nCorrectos: " << correctos;

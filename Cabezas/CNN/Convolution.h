@@ -19,7 +19,9 @@ namespace ReconLib {
 		Convolution(std::vector<Matriz> imagen);
 		void addImageIn(Matriz imagen);
 		void setFilters();
-		void convolutionFunction(int fill_num);
+		void convolutionFunction();
+		void convolutionFunction_nothread();
+		static void convolve(Matriz m, Matriz fil, Matriz& out);
 		std::vector<Matriz> getImageOut();
 	};
 }

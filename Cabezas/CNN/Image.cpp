@@ -87,6 +87,7 @@ namespace ReconLib {
 		return m;
 	}
 
+
 	std::vector<Matriz> Image::CargaCarpeta(std::string ruta) {
 		std::vector<std::string> nombres = ArchivosEnCarpeta(ruta);
 		//rutaarchivo se saca como ruta+nombres[i]

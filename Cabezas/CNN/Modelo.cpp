@@ -10,28 +10,19 @@
 #include <ctime> 
 
 namespace ReconLib {
-	
 	Modelo::Modelo(std::vector<Matriz> images,std::vector<std::vector<float>> labels, int epocas, int convolutions, int maxpoolings, float learningRate, std::string pesospath) {
-		/*int trainNumber = ceil(images.size() * 0.8);
-		int validNumber = images.size()-trainNumber;*/
 		int trainNumber = images.size();
 		int validNumber = images.size();
 
 		for (int i = 0; i < trainNumber;i++) {
 			this->imagesTrain.push_back(images.at(i));
-			//images.at(i).mostrar();
 			this->labelsTrain.push_back(labels.at(i));
 		}
-		//
-		//
 		// Verificar que los labels calzen con la posicion de la imagen
-		//
-		//
 		for (int i = trainNumber; i < images.size();i++) {
 			this->imagesValid.push_back(images.at(i));
 			this->labelsValid.push_back(labels.at(i));
 		}
-
 		this->epochs = epocas;
 		this->convolutions = convolutions;
 		this->maxpoolings = maxpoolings;
@@ -39,11 +30,14 @@ namespace ReconLib {
 		this->rutapesos = pesospath;
 	}
 	
-	void Modelo::train() {
+	void Modelo::train(
+	) {
 		float totalEntropy = 1.0;
 		int e = 0;
+		
 		while (e<this->epochs && totalEntropy>0.001) {
 			//recorrer imagenes
+			auto startt = std::chrono::system_clock::now();
 			totalEntropy = 0.0;
 			for (int index = 0; index <this->imagesTrain.size();index++) {
 				
@@ -58,9 +52,21 @@ namespace ReconLib {
 				std::cout << "Epoch: " << e + 1 << " Imagen n: " << index << " FPS:"<< 1.0/elapsed_seconds.count()<<"\r";
 				
 			}
+			auto endt = std::chrono::system_clock::now();
+			std::chrono::duration<double> elapsed_secondst = endt - startt;
+			std::time_t end_timet = std::chrono::system_clock::to_time_t(endt);
+
 			totalEntropy = totalEntropy / this->imagesTrain.size();
 
-			std::cout << "La entropia total es: "<< totalEntropy<<" Para la epoca: "<<e+1<<'\n';
+
+			std::cout << "La entropia total es: " << totalEntropy << " para la epoca " << e + 1 <<
+				" (" << elapsed_secondst.count() << " seg) " <<
+				" (Restante: ";
+			/*if (e == 0) std::cout << "Calculando...)\n";
+			else*/ if (e == epochs - 1) std::cout << "Terminando...)\n";
+			else {
+				std::cout << round(elapsed_secondst.count() * (epochs - (e + 1))) << "seg aprox.)\n";
+			}
 			std::cout << "Backpropagating...";
 			backprop(e);
 			std::cout << "\r";
@@ -87,7 +93,6 @@ namespace ReconLib {
 	float Modelo::imageLoss(int index, int epoch) {
 		float lossEntropy = 0;
 		std::vector<Matriz> imagenIn;
-		
 		imagenIn.push_back(this->imagesTrain.at(index));
 		//Convolution con1(imagenIn,numFilters);
 		////Falta max pooling
@@ -133,15 +138,11 @@ namespace ReconLib {
 	}
 
 	void Modelo::backprop(int epoch) {
-		
 		for (int image = 0; image < this->imagesTrain.size();image++) {
 			calculateGradients(image,epoch);
 		}
 		calculateAvgGradient(this->gradients);
-		
 		applyGradient();	
-		
-		
 	}
 
 	void Modelo::calculateGradients(int imageIndex,int epoch) {
@@ -182,14 +183,11 @@ namespace ReconLib {
 				avgM.set(i,j,num);
 			}
 		}
-
 		this->avgGradients = avgM;
 	}
 
 	void Modelo::applyGradient() {
-		//Falta multiplicar por el learning rate
 		this->weights = Matriz().subtractMatrizTerm(this->weights,this->avgGradients.mulByScalar(this->learningRate));
-
 	}
 
 	

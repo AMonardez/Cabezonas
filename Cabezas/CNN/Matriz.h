@@ -17,6 +17,7 @@ namespace ReconLib {
 		Matriz(int dimension);
 		Matriz();
 		void mostrar();
+		void mostrardim();
 		void rellenar(float relleno);
 		float get(int i, int j);
 		void set(int i, int j, float valor);

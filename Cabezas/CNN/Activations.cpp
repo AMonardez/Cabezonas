@@ -9,7 +9,7 @@ namespace ReconLib {
 		float termino;
 
 		for (int i = 0; i < input.size(); i++) {
-			termino = exp(input.at(i)/10.0); // T R U C H O
+			termino = exp(input.at(i)/50.0); // T R U C H O
 			//std::cout << input.at(i) << ' '<<termino<<'\n';
 			suavecita.push_back(termino);
 			sumaton = sumaton + termino;

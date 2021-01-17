@@ -22,7 +22,6 @@ namespace ReconLib {
 		std::vector<float> get_pixels();
 		static std::vector<std::string> ArchivosEnCarpeta(std::string ruta);
 		static std::vector<Matriz> CargaCarpeta(std::string ruta);
-
 		void dibujarRect(struct label etiqueta, int anchoRect, int altoRect, int r, int g, int b);
 		void dibujarLinea(int x0, int y0, int x1, int y1, int r, int g, int b);
 		void guardar(std::string suffix);

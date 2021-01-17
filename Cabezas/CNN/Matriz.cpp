@@ -66,6 +66,11 @@ namespace ReconLib {
 		}
 	}
 
+	void Matriz::mostrardim()
+	{
+		std::cout << "Dimension: " <<this->ancho<<"x"<<this->alto <<std::endl;
+	}
+
 	void Matriz::rellenar(float relleno)
 	{
 		for (int i = 0; i < this->alto; i++) {
@@ -160,7 +165,7 @@ namespace ReconLib {
 				}
 			}
 		}
-		//std::cout<< m.ancho <<" "<<m.alto<<" " <<great <<'\n';
+		//std::cout<< m.ancho <<" "<<m.alto<<" " <<great <<'\n';	
 		return great;
 	}
 
@@ -231,8 +236,6 @@ namespace ReconLib {
 		return size;
 	}
 
-	
-
 	std::vector<std::vector<float>> Matriz::toVector(){
 		std::vector<std::vector<float >> v;
 		std::vector<float> fila;
@@ -245,9 +248,5 @@ namespace ReconLib {
 		}
 		return v;
 	}
-
-	/*Matriz::~Matriz() {
-		delete[] numeros;
- 	}*/
 
 }
