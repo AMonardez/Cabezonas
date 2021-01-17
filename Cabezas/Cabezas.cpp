@@ -22,7 +22,7 @@ int validarcabezas(std::string rutapesos) {
 }
 
 void entrenarcabezas(std::string rutapesos) {
-    int epochs = 150;
+    int epochs = 75;
     float learningrate = 0.4;
     Detector t(rutapesos);
     t.train(epochs, learningrate);
