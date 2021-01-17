@@ -2,8 +2,11 @@
 #include "Layer.h"
 
 namespace ReconLib{
-
-
+    Layer::Layer() {};
+    Layer::Layer(std::vector<Matriz> inputs)
+    {
+        this->Imagenes = inputs;
+    }
     Matriz Layer::maxpooling(Matriz matrixEntrada)
     {
         int kernel = 2;
@@ -25,7 +28,6 @@ namespace ReconLib{
         return poolingM;
     }
 
-
     std::vector<std::vector<float>> Layer::flatten(std::vector<Matriz> vector_matrix){
         std::vector<std::vector<float>> flattenVector;
         for(Matriz m:vector_matrix){
@@ -39,7 +41,4 @@ namespace ReconLib{
         }
         return flattenVector;
     }
-
-	
-	// Matriz optimize(int label_num,Matriz matrix,int ages);
 }
