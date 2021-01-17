@@ -10,6 +10,7 @@ using namespace cv;
 
 int validarcabezas(std::string rutapesos) {
     Detector t(rutapesos);
+    //Detector ex testeo
     //Testeo t("../Personas/pesos_personas.txt");
     //std::vector<float> labeles(2, 0.0);labeles.at(0) = 1.0;
     //std::vector<float> labeles2(2, 0.0); labeles2.at(1) = 1.0;
